@@ -6,6 +6,7 @@ public class Planet {
 	double yyVel;
 	double mass;
 	String imgFileName;
+	final double GRAV_CONSTANT = 6.67 * Math.pow(10, -11);
 
 	public Planet(double xP, double yP, double xV, double yV, double m, String img) {
 		this.xxPos = xP;
@@ -27,5 +28,9 @@ public class Planet {
 
 	public double calcDistance(Planet other) {
 		return Math.pow((Math.pow((this.xxPos - other.xxPos), 2) + Math.pow((this.yyPos - other.yyPos), 2)), .5);
+	}
+
+	public double calcForceExertedBy(Planet other) {
+		return (GRAV_CONSTANT * this.mass * other.mass) / (Math.pow(calcDistance(other), 2));
 	}
 }
