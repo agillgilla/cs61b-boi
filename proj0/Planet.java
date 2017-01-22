@@ -24,4 +24,8 @@ public class Planet {
 		this.mass = p.mass;
 		this.imgFileName = p.imgFileName;
 	}
+
+	public double calcDistance(Planet other) {
+		return pow((pow((this.xxPos - other.xxPos), 2) + pow((this.yyPos - other.yyPos), 2)), .5);
+	}
 }
