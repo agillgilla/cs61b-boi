@@ -26,6 +26,6 @@ public class Planet {
 	}
 
 	public double calcDistance(Planet other) {
-		return pow((pow((this.xxPos - other.xxPos), 2) + pow((this.yyPos - other.yyPos), 2)), .5);
+		return Math.pow((Math.pow((this.xxPos - other.xxPos), 2) + Math.pow((this.yyPos - other.yyPos), 2)), .5);
 	}
 }
