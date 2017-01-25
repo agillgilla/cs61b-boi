@@ -38,5 +38,41 @@ public class NBody {
 		for (Planet planet : planets) {
 			planet.draw();
 		}
+
+		double time = 0.0;
+		while (time < T) {
+			double[] xForces = new double[planets.length];
+			double[] yForces = new double[planets.length];
+			int i = 0;
+			for (Planet planet : planets) {
+				xForces[i] = planet.calcNetForceExertedByX(planets);
+				yForces[i] = planet.calcNetForceExertedByY(planets);
+				i++;
+			}
+
+			int n = 0;
+			for (Planet planet : planets) {
+				planet.update(dt, xForces[n], yForces[n]);
+				n++;
+			}
+			
+			StdDraw.picture(0, 0, "images/starfield.jpg");
+
+			for (Planet planet : planets) {
+				planet.draw();
+			}
+
+			StdDraw.show(10);
+
+			time += dt;
+		}
+		
+		StdOut.printf("%d\n", planets.length);
+		StdOut.printf("%.2e\n", radiusUniverse);
+		for (int i = 0; i < planets.length; i++) {
+			StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
+		   		planets[i].xxPos, planets[i].yyPos, planets[i].xxVel, planets[i].yyVel, planets[i].mass, planets[i].imgFileName);	
+		}
+
 	}
 }
