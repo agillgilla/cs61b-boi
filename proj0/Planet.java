@@ -6,7 +6,7 @@ public class Planet {
 	public double yyVel;
 	public double mass;
 	public String imgFileName;
-	final public double GRAV_CONSTANT = 6.67 * Math.pow(10, -11);
+	final private double GRAV_CONSTANT = 6.67 * Math.pow(10, -11);
 
 	public Planet(double xP, double yP, double xV, double yV, double m, String img) {
 		this.xxPos = xP;
