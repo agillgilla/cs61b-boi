@@ -1,12 +1,12 @@
 public class Planet {
 	
-	private double xxPos;
-	private double yyPos;
-	private double xxVel;
-	private double yyVel;
-	private double mass;
-	private String imgFileName;
-	final private double GRAV_CONSTANT = 6.67 * Math.pow(10, -11);
+	public double xxPos;
+	public double yyPos;
+	public double xxVel;
+	public double yyVel;
+	public double mass;
+	public String imgFileName;
+	final public double GRAV_CONSTANT = 6.67 * Math.pow(10, -11);
 
 	public Planet(double xP, double yP, double xV, double yV, double m, String img) {
 		this.xxPos = xP;
