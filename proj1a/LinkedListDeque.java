@@ -7,7 +7,7 @@ public class LinkedListDeque<T> {
     public int size;
 
     public LinkedListDeque() {
-        this.sentinel = new Node();
+        this.sentinel = new Node<T>();
         this.sentinel.next = this.sentinel;
         this.sentinel.prev = this.sentinel;
         this.size = 0;
@@ -25,6 +25,32 @@ public class LinkedListDeque<T> {
         this.sentinel.prev.next = addedNode;
         this.sentinel.prev = addedNode;
         this.size++;
+    }
+
+    public T removeFirst() {
+        if (this.size == 0) {
+            return null;
+        }
+        else {
+            T data = (T)this.sentinel.next.data;
+            this.sentinel.next = this.sentinel.next.next;
+            this.sentinel.next.prev = this.sentinel;
+            this.size--;
+            return data;
+        }
+    }
+
+    public T removeLast() {
+        if (this.size == 0) {
+            return null;
+        }
+        else {
+            T data = (T)this.sentinel.prev.data;
+            this.sentinel.prev = this.sentinel.prev.prev;
+            this.sentinel.prev.next = this.sentinel;
+            this.size--;
+            return data;
+        }
     }
 
     public boolean isEmpty() {
