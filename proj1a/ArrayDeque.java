@@ -49,7 +49,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextLast] = null;
             this.size--;
-            if (this.array.length >= 16 && ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= 16 &&
+                    ((double) this.size / (double) this.array.length) < .25) {
                 resizeDown();
             }
             return temp;
@@ -67,7 +68,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextFirst] = null;
             this.size--;
-            if (this.array.length >= 16 && ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= 16 &&
+                    ((double) this.size / (double) this.array.length) < .25) {
                 resizeDown();
             }
             return temp;
@@ -110,9 +112,9 @@ public class ArrayDeque<Item> {
             System.arraycopy(this.array,
                       0,
                              newArray,
-                    (int) ((newArray.length / 2) - this.array.length / 2) +
-                                                                this.array.length -
-                                                                (this.nextFirst + 1),
+                    (int) ((newArray.length / 2) - this.array.length / 2)
+                                                                + this.array.length
+                                                                - (this.nextFirst + 1),
                      this.size - (this.array.length - (this.nextFirst + 1)));
         } else {
             System.arraycopy(this.array,
