@@ -52,11 +52,7 @@ public class LinkedListDeque<Item> {
     }
 
     public boolean isEmpty() {
-        if (this.size == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.size == 0;
     }
 
     public int size() {

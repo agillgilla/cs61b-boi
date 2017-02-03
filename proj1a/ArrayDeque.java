@@ -8,7 +8,7 @@ public class ArrayDeque<Item> {
     private int nextLast;
 
     public ArrayDeque() {
-        this.array = (Item[])new Object[8];
+        this.array = (Item[]) new Object[8];
         this.size = 0;
         this.nextFirst = this.array.length / 2;
         this.nextLast = this.nextFirst + 1;
@@ -104,10 +104,11 @@ public class ArrayDeque<Item> {
             System.arraycopy(this.array,
                       0,
                              newArray,
-                    (int) ((newArray.length / 2) - this.array.length / 2) + this.array.length - (this.nextFirst + 1),
+                    (int) ((newArray.length / 2) - this.array.length / 2) +
+                                                                this.array.length -
+                                                                (this.nextFirst + 1),
                      this.size - (this.array.length - (this.nextFirst + 1)));
-        }
-        else {
+        } else {
             System.arraycopy(this.array,
                       this.nextFirst + 1,
                              newArray,
