@@ -49,8 +49,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextLast] = null;
             this.size--;
-            if (this.array.length >= 16 &&
-                    ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= 16
+                    && ((double) this.size / (double) this.array.length) < .25) {
                 resizeDown();
             }
             return temp;
@@ -68,8 +68,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextFirst] = null;
             this.size--;
-            if (this.array.length >= 16 &&
-                    ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= 16
+                    && ((double) this.size / (double) this.array.length) < .25) {
                 resizeDown();
             }
             return temp;
