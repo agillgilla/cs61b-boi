@@ -1,20 +1,20 @@
 /**
  * Created by Arjun on 1/31/2017.
  */
-public class ArrayDeque<T> {
-    private T[] array;
+public class ArrayDeque<Item> {
+    private Item[] array;
     private int size;
     private int nextFirst;
     private int nextLast;
 
     public ArrayDeque() {
-        this.array = (T[])new Object[8];
+        this.array = (Item[])new Object[8];
         this.size = 0;
         this.nextFirst = this.array.length / 2;
         this.nextLast = this.nextFirst + 1;
     }
 
-    public void addLast(T data) {
+    public void addLast(Item data) {
         this.array[this.nextLast] = data;
         this.nextLast++;
         if (this.nextLast >= this.array.length) {
@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
         }
     }
 
-    public void addFirst(T data) {
+    public void addFirst(Item data) {
         this.array[this.nextFirst] = data;
         this.nextFirst--;
         if (this.nextFirst < 0) {
@@ -38,12 +38,11 @@ public class ArrayDeque<T> {
         }
     }
 
-    public T removeLast() {
+    public Item removeLast() {
         if (this.size == 0) {
             return null;
-        }
-        else {
-            T temp = this.get(this.size - 1);
+        } else {
+            Item temp = this.get(this.size - 1);
             this.nextLast--;
             if (this.nextLast < 0) {
                 this.nextLast = this.array.length - 1;
@@ -54,12 +53,11 @@ public class ArrayDeque<T> {
         }
     }
 
-    public T removeFirst() {
+    public Item removeFirst() {
         if (this.size == 0) {
             return null;
-        }
-        else {
-            T temp = this.get(0);
+        } else {
+            Item temp = this.get(0);
             this.nextFirst++;
             if (this.nextFirst >= this.array.length) {
                 this.nextFirst = 0;
@@ -70,14 +68,13 @@ public class ArrayDeque<T> {
         }
     }
 
-    public T get(int index) {
+    public Item get(int index) {
         if (index >= this.size) {
             return null;
         }
         if ((this.nextFirst + 1 + index) >= this.array.length) {
             return this.array[this.nextFirst + 1 + index - this.array.length];
-        }
-        else {
+        } else {
             return this.array[this.nextFirst + 1 + index];
         }
     }
@@ -97,22 +94,34 @@ public class ArrayDeque<T> {
     }
 
     private void resize() {
-        T[] newArray = (T[]) new Object[this.array.length * 2];
+        Item[] newArray = (Item[]) new Object[this.array.length * 2];
         if ((this.array.length - (this.nextFirst + 1)) < this.size) {
-            System.arraycopy(this.array, this.nextFirst + 1, newArray, (int)((newArray.length / 2) - this.array.length / 2), this.array.length - (this.nextFirst + 1));
-            System.arraycopy(this.array, 0, newArray, (int)((newArray.length / 2) - this.array.length / 2) + this.array.length - (this.nextFirst + 1), this.size - (this.array.length - (this.nextFirst + 1)));
+            System.arraycopy(this.array,
+                      this.nextFirst + 1,
+                             newArray,
+                             (int) ((newArray.length / 2) - this.array.length / 2),
+                      this.array.length - (this.nextFirst + 1));
+            System.arraycopy(this.array,
+                      0,
+                             newArray,
+                    (int) ((newArray.length / 2) - this.array.length / 2) + this.array.length - (this.nextFirst + 1),
+                     this.size - (this.array.length - (this.nextFirst + 1)));
         }
         else {
-            System.arraycopy(this.array, this.nextFirst + 1, newArray, (int)((newArray.length / 2) - this.array.length / 2), this.size);
+            System.arraycopy(this.array,
+                      this.nextFirst + 1,
+                             newArray,
+                             (int) ((newArray.length / 2) - this.array.length / 2),
+                             this.size);
         }
 
-        this.nextFirst = (int)((newArray.length / 2) - this.array.length / 2) - 1;
+        this.nextFirst = (int) ((newArray.length / 2) - this.array.length / 2) - 1;
         this.nextLast = nextFirst + this.size + 1;
 
         this.array = newArray;
     }
 
-    public static void printArray(Object[] array) {
+    private static void printArray(Object[] array) {
         for (Object object : array) {
             System.out.print(object + " ");
         }

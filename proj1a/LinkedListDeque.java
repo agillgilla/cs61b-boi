@@ -1,38 +1,37 @@
 /**
  * Created by Arjun on 1/29/2017.
  */
-public class LinkedListDeque<T> {
+public class LinkedListDeque<Item> {
 
-    private Node<T> sentinel;
+    private Node<Item> sentinel;
     private int size;
 
     public LinkedListDeque() {
-        this.sentinel = new Node<T>();
+        this.sentinel = new Node<Item>();
         this.sentinel.next = this.sentinel;
         this.sentinel.prev = this.sentinel;
         this.size = 0;
     }
 
-    public void addFirst(T data) {
-        Node<T> addedNode = new Node<T>(data, this.sentinel, this.sentinel.next);
+    public void addFirst(Item data) {
+        Node<Item> addedNode = new Node<Item>(data, this.sentinel, this.sentinel.next);
         this.sentinel.next = addedNode;
         addedNode.next.prev = addedNode;
         this.size++;
     }
 
-    public void addLast(T data) {
-        Node<T> addedNode = new Node<T>(data, this.sentinel.prev, this.sentinel);
+    public void addLast(Item data) {
+        Node<Item> addedNode = new Node<Item>(data, this.sentinel.prev, this.sentinel);
         this.sentinel.prev.next = addedNode;
         this.sentinel.prev = addedNode;
         this.size++;
     }
 
-    public T removeFirst() {
+    public Item removeFirst() {
         if (this.size == 0) {
             return null;
-        }
-        else {
-            T data = (T)this.sentinel.next.data;
+        } else {
+            Item data = (Item) this.sentinel.next.data;
             this.sentinel.next = this.sentinel.next.next;
             this.sentinel.next.prev = this.sentinel;
             this.size--;
@@ -40,12 +39,11 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T removeLast() {
+    public Item removeLast() {
         if (this.size == 0) {
             return null;
-        }
-        else {
-            T data = (T)this.sentinel.prev.data;
+        } else {
+            Item data = (Item) this.sentinel.prev.data;
             this.sentinel.prev = this.sentinel.prev.prev;
             this.sentinel.prev.next = this.sentinel;
             this.size--;
@@ -56,8 +54,7 @@ public class LinkedListDeque<T> {
     public boolean isEmpty() {
         if (this.size == 0) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -66,12 +63,11 @@ public class LinkedListDeque<T> {
         return this.size;
     }
 
-    public T get(int index) {
+    public Item get(int index) {
         if (index > this.size - 1) {
             return null;
-        }
-        else {
-            Node<T> currNode = this.sentinel.next;
+        } else {
+            Node<Item> currNode = this.sentinel.next;
             for (int i = 0; i < index; i++) {
                 currNode = currNode.next;
             }
@@ -79,21 +75,19 @@ public class LinkedListDeque<T> {
         }
     }
 
-    public T getRecursive(int index) {
+    public Item getRecursive(int index) {
         if (index > this.size - 1) {
             return null;
-        }
-        else {
-            return (T)getRecursiveHelper(index, this.sentinel.next);
+        } else {
+            return (Item) getRecursiveHelper(index, this.sentinel.next);
         }
     }
 
-    private T getRecursiveHelper(int index, Node<T> currentNode) {
+    private Item getRecursiveHelper(int index, Node<Item> currentNode) {
         if (index == 0) {
             return currentNode.data;
-        }
-        else {
-            return (T)getRecursiveHelper(index - 1, currentNode.next);
+        } else {
+            return (Item) getRecursiveHelper(index - 1, currentNode.next);
         }
     }
 
