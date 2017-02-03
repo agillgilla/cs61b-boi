@@ -160,10 +160,23 @@ public class ArrayDequeTest {
         ad1.addLast("g");
         ad1.addFirst("h");
         ad1.addFirst("i");
-        //ad1.printDeque();
 
+        // should be the following structure [i, h, f, c, a, b, d, e, g]
+        //                                    |  |  |  |  |  |  |  |  |
+        //                                    0  1  2  3  4  5  6  7  8
+        Assert.assertEquals("g", ad1.removeLast());
+        Assert.assertEquals("e", ad1.removeLast());
+        Assert.assertEquals("i", ad1.removeFirst());
+        Assert.assertEquals("h", ad1.removeFirst());
+        Assert.assertEquals("f", ad1.removeFirst());
+        Assert.assertEquals("d", ad1.removeLast());
 
+        // should be the following structure [c, a, b]
+        //                                    |  |  |
+        //                                    0  1  2
+        // and should have resized down.
 
+        System.out.println("");
         System.out.println("Finished exhaustive test.");
     }
 
