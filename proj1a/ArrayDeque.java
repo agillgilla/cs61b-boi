@@ -6,6 +6,8 @@ public class ArrayDeque<Item> {
     private int size;
     private int nextFirst;
     private int nextLast;
+    private final int MAX_UNOPTIMIZED_LENGTH = 16;
+    private final double MIN_ARRAY_USAGE = .25;
 
     public ArrayDeque() {
         this.array = (Item[]) new Object[8];
@@ -49,8 +51,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextLast] = null;
             this.size--;
-            if (this.array.length >= 16
-                    && ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= MAX_UNOPTIMIZED_LENGTH
+                    && ((double) this.size / (double) this.array.length) < MIN_ARRAY_USAGE) {
                 resizeDown();
             }
             return temp;
@@ -68,8 +70,8 @@ public class ArrayDeque<Item> {
             }
             this.array[this.nextFirst] = null;
             this.size--;
-            if (this.array.length >= 16
-                    && ((double) this.size / (double) this.array.length) < .25) {
+            if (this.array.length >= MAX_UNOPTIMIZED_LENGTH
+                    && ((double) this.size / (double) this.array.length) < MIN_ARRAY_USAGE) {
                 resizeDown();
             }
             return temp;
