@@ -3,8 +3,8 @@
  */
 public class LinkedListDeque<T> {
 
-    public Node<T> sentinel;
-    public int size;
+    private Node<T> sentinel;
+    private int size;
 
     public LinkedListDeque() {
         this.sentinel = new Node<T>();
@@ -76,6 +76,24 @@ public class LinkedListDeque<T> {
                 currNode = currNode.next;
             }
             return currNode.data;
+        }
+    }
+
+    public T getRecursive(int index) {
+        if (index > this.size - 1) {
+            return null;
+        }
+        else {
+            return (T)getRecursiveHelper(index, this.sentinel.next);
+        }
+    }
+
+    private T getRecursiveHelper(int index, Node<T> currentNode) {
+        if (index == 0) {
+            return currentNode.data;
+        }
+        else {
+            return (T)getRecursiveHelper(index - 1, currentNode.next);
         }
     }
 

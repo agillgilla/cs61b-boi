@@ -19,6 +19,20 @@ public class LinkedListDequeTest {
 		return true;
 	}
 
+	/* Utility method for printing out get checks in doubles. */
+	public static boolean checkGetDouble(Double expected, Double actual) {
+		if (actual == null && expected == null) {
+			return true;
+		}
+		else if (!actual.equals(expected)) {
+			System.out.println("getRecursive() returned " + actual + ", but expected: " + expected);
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+
 	/* Prints a nice message based on whether a test passed. 
 	 * The \n means newline. */
 	public static void printTestStatus(boolean passed) {
@@ -35,7 +49,6 @@ public class LinkedListDequeTest {
 	  * && is the "and" operation. */
 	public static void addIsEmptySizeTest() {
 		System.out.println("Running add/isEmpty/Size test.");
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
 
 		LinkedListDeque<String> lld1 = new LinkedListDeque<String>();
 
@@ -66,8 +79,6 @@ public class LinkedListDequeTest {
 
 		System.out.println("Running add/remove test.");
 
-		System.out.println("Make sure to uncomment the lines below (and delete this print statement).");
-		/*
 		LinkedListDeque<Integer> lld1 = new LinkedListDeque<Integer>();
 		// should be empty 
 		boolean passed = checkEmpty(true, lld1.isEmpty());
@@ -81,12 +92,33 @@ public class LinkedListDequeTest {
 		passed = checkEmpty(true, lld1.isEmpty()) && passed;
 
 		printTestStatus(passed);
-		*/
+
+	}
+
+	/** Adds items to a LinkedListDeque then tests the getRecursive() method. */
+	public static void addGetRecursiveTest() {
+
+		System.out.println("Running getRecursive test.");
+
+		LinkedListDeque<Double> lld1 = new LinkedListDeque<Double>();
+
+		lld1.addFirst(1.0);
+		lld1.addFirst(2.0);
+		lld1.addFirst(3.0);
+
+		boolean passed = checkGetDouble(1.0, lld1.getRecursive(2));
+		passed = checkGetDouble(2.0, lld1.getRecursive(1)) && passed;
+		passed = checkGetDouble(3.0, lld1.getRecursive(0)) && passed;
+		passed = checkGetDouble(null, lld1.getRecursive(3)) && passed;
+
+		printTestStatus(passed);
+
 	}
 
 	public static void main(String[] args) {
 		System.out.println("Running tests.\n");
 		addIsEmptySizeTest();
 		addRemoveTest();
+		addGetRecursiveTest();
 	}
 } 
