@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class TestArrayDeque1B {
 
-    @Test
+    @Test(timeout = 1000)
     public void testRandomArrayDequeMethods() {
         StudentArrayDeque<Integer> sad1 = new StudentArrayDeque<>();
         ArrayDequeSolution<Integer> ads1 = new ArrayDequeSolution<>();
