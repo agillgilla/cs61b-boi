@@ -12,15 +12,15 @@ A:
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: Repeated use of certain expressions could be replaced with a variable, specifically in the get and resize methods.
 
 Q: What do you wish you would have known before writing ArrayDeque, if anything?
 
-A:
+A: I wish I knew that we could implement it differently than specified in the example slides.
 
 Q: If you wrote ArrayDeque again, what would you do differently, if anything?
 
-A:
+A: I would implement the ArrayDeque such that the underlying array was filled up from the ends rather than starting from the middle
 
 -----
 
@@ -28,23 +28,23 @@ LinkedListDeque:
 
 Q: Give an example of at least one idea from the staff solution that would have made your solution better (if any).
 
-A: 
+A: The staff solution isn't available.
 
 Q: What's something you felt proud of in your code, if anything?
 
-A:
+A: The elegance in my code made me feel proud.
 
 Q: What's something that was particularly inelegant in your code, if anything?
 
-A:
+A: There was nothing particularly inelegant in my code.
 
-Q: What do you wish you would have known before writing ArrayDeque, if anything?
+Q: What do you wish you would have known before writing LinkedListDeque, if anything?
 
-A:
+A: Nothing.
 
 Q: If you wrote LinkedListDeque again, what would you do differently, if anything?
 
-A:
+A: Nothing.
 
 -----
 
@@ -52,4 +52,4 @@ Meta:
 
 Q: This is the first time we've tried something like this. Did you like this design review process? Anything we should do differently next time?
 
-A: 
+A: I think there should be hypothetical questions about changes in the code and how those would affect the design and functionality of the classes, rather than just asking if the code was elegant or if we have any regrets.
