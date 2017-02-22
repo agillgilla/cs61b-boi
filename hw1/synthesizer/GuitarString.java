@@ -36,8 +36,6 @@ public class GuitarString {
             this.buffer.dequeue();
         }
         for (int i = this.buffer.fillCount(); i < this.buffer.capacity(); i++) {
-            System.out.println(this.buffer.capacity());
-            System.out.println(this.buffer.fillCount());
             this.buffer.enqueue(Math.random() - .5);
         }
     }
