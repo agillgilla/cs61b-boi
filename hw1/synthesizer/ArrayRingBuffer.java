@@ -46,6 +46,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             if (this.last == this.rb.length) {
                 this.last = 0;
             }
+            this.fillCount++;
         }
     }
 
@@ -64,6 +65,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
             if (this.first == this.rb.length) {
                 this.first = 0;
             }
+            this.fillCount--;
             return temp;
         }
     }
