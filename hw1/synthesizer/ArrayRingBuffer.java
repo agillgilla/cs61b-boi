@@ -87,7 +87,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
         }
 
         public boolean hasNext() {
-            if ((this.currIndex + 1) % buffer.capacity() == buffer.last) {
+            if (this.currIndex == this.buffer.last) {
                 return false;
             }
             return true;
@@ -95,14 +95,16 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
 
         public T next() {
             if (this.hasNext()) {
+                T temp = this.buffer.rb[currIndex];
                 this.currIndex += 1;
-                if (this.currIndex > buffer.capacity) {
+                if (this.currIndex > this.buffer.capacity()) {
                     this.currIndex = 0;
                 }
-                return buffer.rb[currIndex];
+                return temp;
             } else {
                 return null;
             }
+
         }
     }
 
