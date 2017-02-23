@@ -14,6 +14,4 @@ public abstract class AbstractBoundedQueue<T> implements BoundedQueue<T> {
         return fillCount;
     }
 
-    public abstract T peek();
-    public abstract T dequeue();
 }

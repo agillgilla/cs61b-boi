@@ -3,7 +3,7 @@ package synthesizer;
 /**
  * Created by Arjun on 2/21/2017.
  */
-import java.util.Iterator;
+
 public interface BoundedQueue<T> extends Iterable<T> {
 
     int capacity();          // return size of the buffer
