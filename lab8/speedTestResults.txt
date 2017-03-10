@@ -1,0 +1,10 @@
+I ran InsertInOrderSpeedTest.java and inserted 1000 strings into each data structure, yielding runtimes:
+ULLMap: .03 sec
+BSTMap: .02 sec
+TreeMap: .01 sec
+
+I ran InsertRandomSpeedTest.java and isnerted 10000 strings of length 10 each into each data structure,
+yielding runtimes:
+ULLMap: .39 sec
+BSTMap: .01 sec
+Treemap: .01 sec
