@@ -1,13 +1,13 @@
 package hw2;                       
 
-import edu.princeton.cs.algs4.QuickUnionUF;
+
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
 
     private static final boolean OPEN = true;
     private static final boolean BLOCKED = false;
-    private QuickUnionUF unionHelper;
+    private WeightedQuickUnionUF unionHelper;
     private int N;
     private boolean[][] sites;
     private int vTop, vBottom;
@@ -24,7 +24,7 @@ public class Percolation {
         }
 
         this.N = N;
-        this.unionHelper = new QuickUnionUF((int)(Math.pow(N, 2) + 2));
+        this.unionHelper = new WeightedQuickUnionUF((int)(Math.pow(N, 2) + 2));
         this.sites = new boolean[N][N];
         this.vTop = (int) Math.pow(N, 2);
         this.vBottom = (int) (Math.pow(N, 2) + 1);
