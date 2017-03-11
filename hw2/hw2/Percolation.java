@@ -8,6 +8,7 @@ public class Percolation {
     private static final boolean OPEN = true;
     private static final boolean BLOCKED = false;
     private WeightedQuickUnionUF unionHelper;
+    private WeightedQuickUnionUF topUnionHelper;
     private int N;
     private boolean[][] sites;
     private int vTop, vBottom;
@@ -26,6 +27,7 @@ public class Percolation {
 
         this.N = N;
         this.unionHelper = new WeightedQuickUnionUF((int) (Math.pow(N, 2) + 2));
+        this.topUnionHelper = new WeightedQuickUnionUF((int) (Math.pow(N, 2) + 1));
         this.sites = new boolean[N][N];
         this.vTop = (int) Math.pow(N, 2);
         this.vBottom = (int) (Math.pow(N, 2) + 1);
@@ -42,6 +44,7 @@ public class Percolation {
         for (int c = 0; c < this.N; c++) {
             int index = this.xyTo1D(0, c);
             this.unionHelper.union(this.vTop, index);
+            this.topUnionHelper.union(this.vTop, index);
             index = this.xyTo1D(this.N - 1, c);
             this.unionHelper.union(this.vBottom, index);
         }
@@ -65,21 +68,25 @@ public class Percolation {
             if (validIndex(row - 1, col)) {
                 if (isOpen(row - 1, col)) {
                     this.unionHelper.union(index, this.xyTo1D(row - 1, col));
+                    this.topUnionHelper.union(index, this.xyTo1D(row - 1, col));
                 }
             }
             if (validIndex(row + 1, col)) {
                 if (isOpen(row + 1, col)) {
                     this.unionHelper.union(index, this.xyTo1D(row + 1, col));
+                    this.topUnionHelper.union(index, this.xyTo1D(row + 1, col));
                 }
             }
             if (validIndex(row, col - 1)) {
                 if (isOpen(row, col - 1)) {
                     this.unionHelper.union(index, this.xyTo1D(row, col - 1));
+                    this.topUnionHelper.union(index, this.xyTo1D(row, col - 1));
                 }
             }
             if (validIndex(row, col + 1)) {
                 if (isOpen(row, col + 1)) {
                     this.unionHelper.union(index, this.xyTo1D(row, col + 1));
+                    this.topUnionHelper.union(index, this.xyTo1D(row, col + 1));
                 }
             }
             this.numOpen++;
@@ -111,7 +118,7 @@ public class Percolation {
             throw new IndexOutOfBoundsException(
                     "Site '(" + row + ", " + col + "') is out of bounds!");
         }
-        return this.unionHelper.connected(this.vTop, this.xyTo1D(row, col)) && isOpen(row, col);
+        return this.topUnionHelper.connected(this.vTop, this.xyTo1D(row, col)) && isOpen(row, col);
     }
 
     /**
