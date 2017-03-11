@@ -15,6 +15,10 @@ public class PercolationStats {
      * @param T Number of experiments
      */
     public PercolationStats(int N, int T) {
+        if (N <= 0 || T <= 0) {
+            throw new IllegalArgumentException(
+                    "N and T dimension cannot be less than or equal to 0!");
+        }
 
         double[] opensList = new double[T];
         double currMeanSum = 0;
