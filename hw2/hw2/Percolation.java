@@ -134,7 +134,8 @@ public class Percolation {
      * @return system percolates?
      */
     public boolean percolates() {
-        return this.unionHelper.connected(this.vTop, this.vBottom) && (this.numberOfOpenSites() > 0);
+        return this.unionHelper.connected(this.vTop, this.vBottom)
+                && (this.numberOfOpenSites() > 0);
     }
 
     public static void main(String[] args) { // unit testing
