@@ -16,7 +16,7 @@ public class PercolationStats {
      */
     public PercolationStats(int N, int T) {
 
-        int opensList[] = new int[T];
+        int[] opensList = new int[T];
         double currMeanSum = 0;
         for (int test = 0; test < T; test++) {
             Percolation p = new Percolation(N);

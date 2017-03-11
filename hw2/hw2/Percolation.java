@@ -20,11 +20,12 @@ public class Percolation {
      */
     public Percolation(int N)  {
         if (N <= 0) {
-            throw new IllegalArgumentException("Dimension of Percolation grid must be greater than 0.");
+            throw new IllegalArgumentException(
+                    "Dimension of Percolation grid must be greater than 0.");
         }
 
         this.N = N;
-        this.unionHelper = new WeightedQuickUnionUF((int)(Math.pow(N, 2) + 2));
+        this.unionHelper = new WeightedQuickUnionUF((int) (Math.pow(N, 2) + 2));
         this.sites = new boolean[N][N];
         this.vTop = (int) Math.pow(N, 2);
         this.vBottom = (int) (Math.pow(N, 2) + 1);
@@ -54,7 +55,8 @@ public class Percolation {
      */
     public void open(int row, int col)  {
         if (!this.validIndex(row, col)) {
-            throw new IndexOutOfBoundsException("Site '(" + row + ", " + col + "') is out of bounds!");
+            throw new IndexOutOfBoundsException(
+                    "Site '(" + row + ", " + col + "') is out of bounds!");
         }
 
         if (!this.isOpen(row, col)) {
@@ -92,7 +94,8 @@ public class Percolation {
      */
     public boolean isOpen(int row, int col)  {
         if (!this.validIndex(row, col)) {
-            throw new IndexOutOfBoundsException("Site '(" + row + ", " + col + "') is out of bounds!");
+            throw new IndexOutOfBoundsException(
+                    "Site '(" + row + ", " + col + "') is out of bounds!");
         }
         return this.sites[row][col] == this.OPEN;
     }
@@ -105,7 +108,8 @@ public class Percolation {
      */
     public boolean isFull(int row, int col) {
         if (!this.validIndex(row, col)) {
-            throw new IndexOutOfBoundsException("Site '(" + row + ", " + col + "') is out of bounds!");
+            throw new IndexOutOfBoundsException(
+                    "Site '(" + row + ", " + col + "') is out of bounds!");
         }
         return this.unionHelper.connected(this.vTop, this.xyTo1D(row, col)) && isOpen(row, col);
     }
