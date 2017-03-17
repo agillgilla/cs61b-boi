@@ -1,6 +1,11 @@
 package lab9;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Collections;
 
 /**
  * Created by Arjun on 3/17/2017.
@@ -33,33 +38,33 @@ public class MyHashMap<K, V> implements Map61B {
 
     }
 
-    private static class Entry<K,V> implements MapEntry<K,V> {
+    private static class Entry<K, V> implements MapEntry<K, V> {
         K key; V value;
-        Entry<K,V> next;
-        Entry (K key, V value, Entry<K,V> next) {
+        Entry<K, V> next;
+        Entry(K key, V value, Entry<K, V> next) {
             this.key = key; this.value = value; this.next = next;
         }
-        public K getKey () {
+        public K getKey() {
             return key;
         }
-        public V getValue () {
+        public V getValue() {
             return value;
         }
-        public V setValue (V x) {
+        public V setValue(V x) {
             V old = value; value = x; return old;
         }
-        public int hashCode () {
+        public int hashCode() {
             return getValue().hashCode();
         }
         public boolean equals() {
-            return false;
+            return true;
         }
     }
 
     private void putAll(MyHashMap<K, V> m) {
-        for (Iterator i = m.entrySet().iterator(); i.hasNext(); ) {
-                Entry<K, V> e = (Entry<K, V>) i.next();
-                put(e.getKey(), e.getValue());
+        for (Iterator i = m.entrySet().iterator(); i.hasNext();) {
+            Entry<K, V> e = (Entry<K, V>) i.next();
+            put(e.getKey(), e.getValue());
         }
     }
 
@@ -69,10 +74,10 @@ public class MyHashMap<K, V> implements Map61B {
 
     private int hash(Object key) {
         return (key == null) ? 0
-                : (0x7fffffff & key.hashCode ()) % bins.size ();
+                : (0x7fffffff & key.hashCode()) % bins.size();
     }
 
-    private void grow () {
+    private void grow() {
         MyHashMap<K, V> newMap = new MyHashMap((bins.size() * 2), loadFactor);
         newMap.putAll(this);
         copyFrom(newMap);
@@ -85,8 +90,8 @@ public class MyHashMap<K, V> implements Map61B {
     }
 
     private Entry<K, V> find(Object key, Entry<K, V> bin) {
-        for (Entry<K,V> e = bin; e != null; e = e.next) {
-            if (key == null && e.key == null || key.equals (e.key)) {
+        for (Entry<K, V> e = bin; e != null; e = e.next) {
+            if (key == null && e.key == null || key.equals(e.key)) {
                 return e;
             }
         }
@@ -106,7 +111,7 @@ public class MyHashMap<K, V> implements Map61B {
     }
 
     @Override
-    public V get (Object key) {
+    public V get(Object key) {
         Entry e = find(key, bins.get(hash(key)));
         return (e == null) ? null : (V) e.value;
     }
@@ -119,18 +124,19 @@ public class MyHashMap<K, V> implements Map61B {
     @Override
     public void put(Object key, Object value) {
         this.keySet.add((K) key);
-        int h = hash (key);
-        Entry<K, V> e = find (key, bins.get(h));
+        int h = hash(key);
+        Entry<K, V> e = find(key, bins.get(h));
         if (e == null) {
-            bins.set (h, new Entry<K, V> ((K) key, (V) value, bins.get(h)));
-            this.entrySet.add(new Entry<K, V> ((K) key, (V) value, bins.get(h)));
+            bins.set(h, new Entry<K, V>((K) key, (V) value, bins.get(h)));
+            this.entrySet.add(new Entry<K, V>((K) key, (V) value, bins.get(h)));
             size += 1;
-            if (size > bins.size () * loadFactor) {
+            if (size > bins.size() * loadFactor) {
                 grow();
             }
             return;
-        } else
+        } else {
             e.setValue((V) value);
+        }
     }
 
 
