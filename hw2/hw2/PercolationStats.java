@@ -15,8 +15,12 @@ public class PercolationStats {
      * @param T Number of experiments
      */
     public PercolationStats(int N, int T) {
+        if (N <= 0 || T <= 0) {
+            throw new IllegalArgumentException(
+                    "N and T dimension cannot be less than or equal to 0!");
+        }
 
-        int opensList[] = new int[T];
+        double[] opensList = new double[T];
         double currMeanSum = 0;
         for (int test = 0; test < T; test++) {
             Percolation p = new Percolation(N);
@@ -31,13 +35,13 @@ public class PercolationStats {
                     opens++;
                 }
             }
-            opensList[test] = opens;
-            currMeanSum += opens;
+            opensList[test] = opens / Math.pow(N, 2);
+            currMeanSum += opens / Math.pow(N, 2);
         }
         this.mean = currMeanSum / T;
 
         double stdevSum = 0;
-        for (int numOpens : opensList) {
+        for (double numOpens : opensList) {
             stdevSum += Math.pow(numOpens - this.mean, 2);
         }
         this.stddev = Math.pow(stdevSum / (T - 1), .5);
