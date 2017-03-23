@@ -99,7 +99,7 @@ public class Board implements WorldState {
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 val++;
-                if (this.tileAt(i, j) != val && !(i == this.N && j == this.N)) {
+                if (this.tileAt(i, j) != val && !(i == (this.N - 1) && j == (this.N - 1))) {
                     return false;
                 }
             }
@@ -114,7 +114,10 @@ public class Board implements WorldState {
      * @return
      */
     public boolean equals(Object y) {
-        Board other =  (Board) y;
+        Board other = (Board) y;
+        if (this.N != other.getN()) {
+            return false;
+        }
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
                 if (this.tileAt(i, j) != other.tileAt(i, j)) {
@@ -150,4 +153,9 @@ public class Board implements WorldState {
     public int correctJ(int x) {
         return (x - 1) % this.N;
     }
+
+    public int getN() {
+        return this.N;
+    }
+
 }
