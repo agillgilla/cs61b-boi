@@ -3,7 +3,6 @@ package hw3.puzzle;
 import edu.princeton.cs.algs4.MinPQ;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by Arjun on 3/22/2017.
@@ -37,9 +36,7 @@ public class Solver {
             }
 
             for (WorldState neighbor : current.getState().neighbors()) {
-                if (current.getPrevNode() != null && current.getPrevNode().getState().equals(current.getState())) {
-
-                } else if (!neighbor.equals(current.getState())) {
+                if (!neighbor.equals(current.getState())) {
                     this.queue.insert(new SearchNode(neighbor, current));
                 }
             }
@@ -65,14 +62,14 @@ public class Solver {
         return this.solution;
     }
 
-    public Iterable<WorldState> tracePath(SearchNode end, SearchNode start) {
+    public Iterable<WorldState> tracePath(SearchNode end, SearchNode begin) {
         ArrayList<WorldState> path = new ArrayList<>();
         SearchNode current = end;
-        while (!current.equals(start)) {
+        while (!current.equals(begin)) {
             path.add(0, current.getState());
             current = current.getPrevNode();
         }
-        path.add(0, start.getState());
+        path.add(0, begin.getState());
         this.moves = path.size() - 1;
         return path;
     }

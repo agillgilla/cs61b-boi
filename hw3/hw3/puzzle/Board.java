@@ -145,7 +145,7 @@ public class Board implements WorldState {
      * @return
      */
     public boolean equals(Object y) {
-        if (!y.getClass().getSimpleName().equals("Board")) {
+        if (!y.getClass().getSimpleName().equals("Board") || y == null) {
             return false;
         }
         Board other = (Board) y;
