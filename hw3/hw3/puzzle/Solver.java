@@ -71,7 +71,7 @@ public class Solver {
             current = current.getPrevNode();
         }
         path.add(0, start.getState());
-        this.moves = path.size();
+        this.moves = path.size() - 1;
         return path;
     }
 }

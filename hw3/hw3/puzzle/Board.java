@@ -104,7 +104,7 @@ public class Board implements WorldState {
         int manDistSum = 0;
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
-                if (!(i == (this.N - 1) && j == (this.N - 1)) && this.tileAt(i, j) >= 0 && this.tileAt(i, j) < this.N) {
+                if (!(i == (this.N - 1) && j == (this.N - 1)) && this.tileAt(i, j) > 0 && this.tileAt(i, j) < this.N) {
                     manDistSum += Math.abs(i - correctI(this.tileAt(i, j)));
                     manDistSum += Math.abs(j - correctJ(this.tileAt(i, j)));
                 }
