@@ -2,8 +2,6 @@ package hw3.puzzle;
 
 import edu.princeton.cs.algs4.Queue;
 
-import java.util.ArrayDeque;
-
 public class Board implements WorldState {
 
     private int[][] tiles;
@@ -164,17 +162,21 @@ public class Board implements WorldState {
         return true;
     }
 
+    public int hashCode() {
+        return 0;
+    }
+
     /**
      * Returns the string representation of the board.
      * @return
      */
     public String toString() {
         StringBuilder s = new StringBuilder();
-        int N = size();
-        s.append(N + "\n");
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                s.append(String.format("%2d ", tileAt(i,j)));
+        int len = size();
+        s.append(len + "\n");
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j < len; j++) {
+                s.append(String.format("%2d ", tileAt(i, j)));
             }
             s.append("\n");
         }
