@@ -66,14 +66,12 @@ public class Board implements WorldState {
      * @return
      */
     public int manhattan() {
-        int val = 0;
         int manDistSum = 0;
         for (int i = 0; i < this.N; i++) {
             for (int j = 0; j < this.N; j++) {
-                val++;
-                if (!(i == (this.N - 1) && j == (this.N - 1))) {
-                    manDistSum += Math.abs(i - correctI(val));
-                    manDistSum += Math.abs(j - correctJ(val));
+                if (!(i == (this.N - 1) && j == (this.N - 1)) && this.tileAt(i, j) > 0 && this.tileAt(i, j) < this.N - 1) {
+                    manDistSum += Math.abs(i - correctI(this.tileAt(i, j)));
+                    manDistSum += Math.abs(j - correctJ(this.tileAt(i, j)));
                 }
             }
         }
