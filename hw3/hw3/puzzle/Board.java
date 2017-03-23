@@ -147,6 +147,9 @@ public class Board implements WorldState {
      * @return
      */
     public boolean equals(Object y) {
+        if (!y.getClass().getSimpleName().equals("Board")) {
+            return false;
+        }
         Board other = (Board) y;
         if (this.N != other.getN()) {
             return false;

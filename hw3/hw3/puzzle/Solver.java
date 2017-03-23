@@ -37,7 +37,9 @@ public class Solver {
             }
 
             for (WorldState neighbor : current.getState().neighbors()) {
-                if (!neighbor.equals(current.getState())) {
+                if (current.getPrevNode() != null && current.getPrevNode().getState().equals(current.getState())) {
+
+                } else if (!neighbor.equals(current.getState())) {
                     this.queue.insert(new SearchNode(neighbor, current));
                 }
             }
