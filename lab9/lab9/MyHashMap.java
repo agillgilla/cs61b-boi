@@ -56,7 +56,7 @@ public class MyHashMap<K, V> implements Map61B {
         public int hashCode() {
             return getValue().hashCode();
         }
-        public boolean equals() {
+        public boolean equals(Object obj) {
             return true;
         }
     }
