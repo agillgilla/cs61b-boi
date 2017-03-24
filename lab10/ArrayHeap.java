@@ -234,7 +234,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         this.getNode(node).myPriority = priority;
         if (oldPriority < priority) {
             this.sink(node);
-        } else {
+        } else if (oldPriority < priority){
             this.swim(node);
         }
         return;
