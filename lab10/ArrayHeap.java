@@ -27,24 +27,21 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Returns the index of the node to the left of the node at i.
      */
     private static int leftIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return 2 * i;
     }
 
     /**
      * Returns the index of the node to the right of the node at i.
      */
     private static int rightIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return (2 * i) + 1;
     }
 
     /**
      * Returns the index of the node that is the parent of the node at i.
      */
     private static int parentIndex(int i) {
-        /* TODO: Your code here! */
-        return 0;
+        return i / 2;
     }
 
     /**
@@ -107,8 +104,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
-        return;
+        int currIndex = index;
+        int parentIndex = parentIndex(currIndex);
+        while (this.inBounds(parentIndex) && this.getNode(currIndex).priority() < this.getNode(parentIndex).priority()) {
+            this.swap(currIndex, parentIndex);
+            currIndex = parentIndex;
+            parentIndex = parentIndex(currIndex);
+        }
     }
 
     /**
@@ -118,7 +120,35 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
 
-        /** TODO: Your code here. */
+        int currIndex = index;
+        int childRight = this.rightIndex(currIndex);
+        int childLeft = this.leftIndex(currIndex);
+        while (this.inBounds(childLeft)) {
+            if (this.inBounds(childRight)) {
+                if (this.getNode(childLeft).priority() <= this.getNode(childRight).priority()) {
+                    if (this.min(currIndex, childLeft) == childLeft) {
+                        this.swap(currIndex, childLeft);
+                        currIndex = childLeft;
+                    }
+                } else if (this.getNode(childLeft).priority() > this.getNode(childRight).priority()) {
+                    if (this.min(currIndex, childRight) == childRight) {
+                        this.swap(currIndex, childRight);
+                        currIndex = childRight;
+                    }
+                } else {
+                    return;
+                }
+            } else {
+                if (this.min(currIndex, childLeft) == childLeft) {
+                    this.swap(currIndex, childLeft);
+                    currIndex = childLeft;
+                } else {
+                    return;
+                }
+            }
+            childLeft = this.leftIndex(currIndex);
+            childRight = this.rightIndex(currIndex);
+        }
         return;
     }
 
@@ -133,7 +163,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             resize(contents.length * 2);
         }
 
-        /* TODO: Your code here! */
+        this.contents[this.size() + 1] = new Node(item, priority);
+        this.size++;
+        this.swim(this.size());
     }
 
     /**
@@ -142,8 +174,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T peek() {
-        /* TODO: Your code here! */
-        return null;
+        return this.contents[1].item();
     }
 
     /**
@@ -157,8 +188,12 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public T removeMin() {
-        /* TODO: Your code here! */
-        return null;
+        T min = this.getNode(1).item();
+        this.contents[1] = null;
+        this.swap(1, this.size());
+        this.size--;
+        this.sink(1);
+        return min;
     }
 
     /**
@@ -180,7 +215,24 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
+        double oldPriority = -1;
+        int node = -1;
+        for (int nodeIndex = 1; nodeIndex < this.size(); nodeIndex++) {
+            if (this.getNode(nodeIndex).item().equals(item)) {
+                node = nodeIndex;
+                oldPriority = this.getNode(node).priority();
+                break;
+            }
+        }
+        if (node == -1) {
+            throw new RuntimeException("Item not found!");
+        }
+        this.getNode(node).myPriority = priority;
+        if (oldPriority < priority) {
+            this.sink(node);
+        } else {
+            this.swim(node);
+        }
         return;
     }
 
