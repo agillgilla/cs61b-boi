@@ -21,7 +21,7 @@ public class SearchNode implements Comparable<SearchNode> {
     }
 
     public int compareTo(SearchNode other) {
-        return (this.getDistanceFromStart() + this.getEstimatedDistanceToGoal() - (other.getDistanceFromStart() +  other.getEstimatedDistanceToGoal()));
+        return (this.getDistanceFromStart() + this.getEstimatedDistanceToGoal() - (other.getDistanceFromStart() + other.getEstimatedDistanceToGoal()));
     }
 
     public int getDistanceFromStart() {
