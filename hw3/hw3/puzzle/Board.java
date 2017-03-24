@@ -162,6 +162,10 @@ public class Board implements WorldState {
         return true;
     }
 
+    public int hashCode() {
+        return 0;
+    }
+
     /**
      * Returns the string representation of the board.
      * @return
