@@ -15,7 +15,7 @@ public class SearchNode implements Comparable<SearchNode> {
         if (this.prevState == null) {
             this.distanceFromStart = 0;
         } else {
-            this.distanceFromStart = this.prevState.getDistanceFromStart();
+            this.distanceFromStart = this.prevState.getDistanceFromStart() + 1;
         }
         this.estimatedDistanceToGoal = state.estimatedDistanceToGoal();
     }
