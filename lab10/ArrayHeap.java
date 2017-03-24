@@ -221,7 +221,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     public void changePriority(T item, double priority) {
         double oldPriority = -1;
         int node = -1;
-        for (int nodeIndex = 1; nodeIndex < this.size(); nodeIndex++) {
+        for (int nodeIndex = 1; nodeIndex <= this.size(); nodeIndex++) {
             if (this.getNode(nodeIndex).item().equals(item)) {
                 node = nodeIndex;
                 oldPriority = this.getNode(node).priority();
