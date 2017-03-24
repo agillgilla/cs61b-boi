@@ -43,7 +43,7 @@ public class Board implements WorldState {
      * @return
      */
     public Iterable<WorldState> neighbors() {
-        /*Queue<WorldState> neighbors = new Queue<>();
+        Queue<WorldState> neighbors = new Queue<>();
         int hug = size();
         int bug = -1;
         int zug = -1;
@@ -73,8 +73,7 @@ public class Board implements WorldState {
                 }
             }
         }
-        return neighbors;*/
-        return null;
+        return neighbors;
     }
 
     /**
