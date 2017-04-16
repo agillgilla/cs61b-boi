@@ -56,4 +56,23 @@ public class QuickSort {
         // Your code here!
         return items;
     }
+
+    public static void main(String[] args) {
+        Queue<String> students = new Queue<String>();
+        students.enqueue("Alice");
+        students.enqueue("Vanessa");
+        students.enqueue("Ethan");
+        students.enqueue("Jake");
+        students.enqueue("Matthew");
+        students.enqueue("Johnny");
+
+        Queue<String> studentsSorted = MergeSort.mergeSort(students);
+        for (String student : students) {
+            System.out.print(student + ", ");
+        }
+        System.out.println("");
+        for (String student : studentsSorted) {
+            System.out.print(student + ", ");
+        }
+    }
 }
