@@ -29,7 +29,7 @@ public class TileQuadTree {
     // RECURSIVE CONSTRUCTOR
     public TileQuadTree(TileQuadTree parent, int direction) {
         this.element = new Tile(parent.getElement(), direction);
-        if (!(Integer.parseInt(this.element.getImgPath()) >= 444444)) {
+        if (!(Integer.parseInt(this.element.getImgPath()) >= 4444444)) {
             this.NW = new TileQuadTree(this, 1);
             this.NE = new TileQuadTree(this, 2);
             this.SW = new TileQuadTree(this, 3);

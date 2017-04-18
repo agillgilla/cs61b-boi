@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -39,6 +40,47 @@ public class GraphDB {
         }
         clean();
     }
+
+    /**
+     * Adds a new Node to the GraphDB.
+     * @param id ID of new Node
+     * @param lon Longitude of new Node
+     * @param lat Latitude of new Node
+     * @return new Node instance
+     */
+    public Node addNode(long id, double lon, double lat) {
+
+    }
+
+    /**
+     * Adds new Edge between two Nodes to the GraphDB.
+     * @param id1
+     * @param id2
+     */
+    public void addEdge(long id1, long id2) {
+
+    }
+
+    /**
+     * Removes a node.
+     * @param id The ID of the node to be removed.
+     */
+    public void removeNode(long id) {
+
+    }
+
+    /**
+     * Adds new Edge between list of Nodes to the GraphDB.
+     * @param nodes
+     */
+    public void addWay(ArrayDeque<Node> nodes) {
+        Node[] nodeArray = (Node[]) nodes.toArray();
+        Node prevNode = nodeArray[0];
+        for (int i = 1; i < nodeArray.length; i++) {
+            this.addEdge(prevNode.)
+        }
+    }
+
 
     /**
      * Helper to process strings into their "cleaned" form, ignoring punctuation and capitalization.
