@@ -21,6 +21,7 @@ public class Rasterer {
      *  You may not actually need this for your class. */
     public Rasterer(String imgRoot) {
         this.imgRoot = imgRoot;
+        this.mainTree = genQuadTree();
     }
 
     /**
@@ -60,7 +61,7 @@ public class Rasterer {
         /*System.out.println("Since you haven't implemented getMapRaster, nothing is displayed in "
                            + "your browser.");*/
 
-        this.mainTree = genQuadTree();
+
 
         this.render_list = new ArrayDeque<>();
         findQueryBox(this.mainTree,

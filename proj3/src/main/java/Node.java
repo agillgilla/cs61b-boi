@@ -4,7 +4,7 @@ import java.util.HashSet;
  * Created by Arjun on 4/14/2017.
  */
 public class Node {
-    private HashSet<Edge> ways;
+    private HashSet<Edge> edges;
 
     private long id;
     private double lon;
