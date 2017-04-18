@@ -27,4 +27,8 @@ public class Node {
     public void setLat(double lat) {
         this.lat = lat;
     }
+
+    public long getId() {
+        return this.id;
+    }
 }

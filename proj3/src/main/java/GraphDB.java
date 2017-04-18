@@ -49,7 +49,7 @@ public class GraphDB {
      * @return new Node instance
      */
     public Node addNode(long id, double lon, double lat) {
-
+        return null;
     }
 
     /**
@@ -58,7 +58,7 @@ public class GraphDB {
      * @param id2
      */
     public void addEdge(long id1, long id2) {
-
+        return;
     }
 
     /**
@@ -66,7 +66,7 @@ public class GraphDB {
      * @param id The ID of the node to be removed.
      */
     public void removeNode(long id) {
-
+        return;
     }
 
     /**
@@ -77,7 +77,7 @@ public class GraphDB {
         Node[] nodeArray = (Node[]) nodes.toArray();
         Node prevNode = nodeArray[0];
         for (int i = 1; i < nodeArray.length; i++) {
-            this.addEdge(prevNode.)
+            this.addEdge(prevNode.getId(), nodeArray[i].getId());
         }
     }
 
