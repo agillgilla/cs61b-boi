@@ -59,4 +59,8 @@ public class Node {
         }
         return adj;
     }
+
+    public boolean notConnected() {
+        return this.edges.isEmpty();
+    }
 }

@@ -87,9 +87,8 @@ public class GraphDB {
      */
     public void addWay(ArrayDeque<Long> nodeIds, String name) {
         Long[] nodeArray = nodeIds.toArray(new Long[nodeIds.size()]);
-        Long prevNode = nodeArray[0];
         for (int i = 1; i < nodeArray.length; i++) {
-            this.addEdge(prevNode, nodeArray[i], name);
+            this.addEdge(nodeArray[i - 1], nodeArray[i], name);
         }
     }
 
@@ -110,6 +109,15 @@ public class GraphDB {
      */
     private void clean() {
         // TODO: Your code here.
+        ArrayDeque<Long> removeList = new ArrayDeque<>();
+        for (Long vertexID : this.vertices()) {
+            if (this.nodes.get(vertexID).notConnected()) {
+                removeList.add(vertexID);
+            }
+        }
+        for (Long vertexToRemove : removeList) {
+            this.removeNode(vertexToRemove);
+        }
     }
 
     /** Returns an iterable of all vertex IDs in the graph. */
