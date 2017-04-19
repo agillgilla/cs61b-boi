@@ -86,7 +86,7 @@ public class GraphDB {
      * @param nodeIds
      */
     public void addWay(ArrayDeque<Long> nodeIds, String name) {
-        Long[] nodeArray = nodeIds.toArray(new Long[nodes.size()]);
+        Long[] nodeArray = nodeIds.toArray(new Long[nodeIds.size()]);
         Long prevNode = nodeArray[0];
         for (int i = 1; i < nodeArray.length; i++) {
             this.addEdge(prevNode, nodeArray[i], name);
