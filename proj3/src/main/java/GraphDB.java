@@ -42,14 +42,24 @@ public class GraphDB {
     }
 
     /**
-     * Adds a new Node to the GraphDB.
+     * Adds a new Node to the GraphDB from parameters.
      * @param id ID of new Node
      * @param lon Longitude of new Node
      * @param lat Latitude of new Node
      * @return new Node instance
      */
     public Node addNode(long id, double lon, double lat) {
-        return null;
+        Node nd = new Node(id, lon, lat);
+        this.nodes.put(id, nd);
+        return nd;
+    }
+
+    /**
+     * Adds a new Node to the GraphDB
+     * @param nd The new Node instance.
+     */
+    public void addNode(Node nd) {
+        this.nodes.put(nd.getId(), nd);
     }
 
     /**
@@ -57,8 +67,10 @@ public class GraphDB {
      * @param id1
      * @param id2
      */
-    public void addEdge(long id1, long id2) {
-        return;
+    public void addEdge(long id1, long id2, String name) {
+        Edge edge = new Edge(this.nodes.get(id1), this.nodes.get(id2), name);
+        this.nodes.get(id1).addEdge(edge);
+        this.nodes.get(id2).addEdge(edge);
     }
 
     /**
@@ -66,18 +78,18 @@ public class GraphDB {
      * @param id The ID of the node to be removed.
      */
     public void removeNode(long id) {
-        return;
+        this.nodes.remove(id);
     }
 
     /**
      * Adds new Edge between list of Nodes to the GraphDB.
      * @param nodes
      */
-    public void addWay(ArrayDeque<Node> nodes) {
-        Node[] nodeArray = (Node[]) nodes.toArray();
-        Node prevNode = nodeArray[0];
+    public void addWay(ArrayDeque<Long> nodes, String name) {
+        Long[] nodeArray = (Long[]) nodes.toArray();
+        Long prevNode = nodeArray[0];
         for (int i = 1; i < nodeArray.length; i++) {
-            this.addEdge(prevNode.getId(), nodeArray[i].getId());
+            this.addEdge(prevNode, nodeArray[i], name);
         }
     }
 

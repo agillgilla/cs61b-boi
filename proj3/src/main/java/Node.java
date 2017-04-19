@@ -9,11 +9,13 @@ public class Node {
     private long id;
     private double lon;
     private double lat;
+    private String name;
 
     public Node(long id, double lon, double lat) {
         this.id = id;
         this.lon = lon;
         this.lat = lat;
+        this.name = "NO NAME ASSIGNED";
     }
 
     public void setId(long id) {
@@ -30,5 +32,13 @@ public class Node {
 
     public long getId() {
         return this.id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void addEdge(Edge e) {
+        this.edges.add(e);
     }
 }

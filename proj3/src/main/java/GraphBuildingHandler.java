@@ -2,6 +2,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,10 +38,15 @@ public class GraphBuildingHandler extends DefaultHandler {
                     "residential", "living_street", "motorway_link", "trunk_link", "primary_link",
                     "secondary_link", "tertiary_link"));
     private String activeState = "";
+    private boolean currWayValid;
+    private String currWayName;
+    private ArrayDeque<Long> currWayNodes;
+    private Node lastNode;
     private final GraphDB g;
 
     public GraphBuildingHandler(GraphDB g) {
         this.g = g;
+        this.currWayNodes = new ArrayDeque<>();
     }
 
     /**
@@ -71,6 +77,13 @@ public class GraphBuildingHandler extends DefaultHandler {
             /* TODO Use the above information to save a "node" to somewhere. */
             /* Hint: A graph-like structure would be nice. */
 
+            Node nd = new Node(Long.parseLong(attributes.getValue("id")),
+                    Double.parseDouble(attributes.getValue("lon")),
+                    Double.parseDouble(attributes.getValue("lat")));
+            this.g.addNode(nd);
+
+            this.lastNode = nd;
+
         } else if (qName.equals("way")) {
             /* We encountered a new <way...> tag. */
             activeState = "way";
@@ -85,6 +98,7 @@ public class GraphBuildingHandler extends DefaultHandler {
             cumbersome since you might have to remove the connections if you later see a tag that
             makes this way invalid. Instead, think of keeping a list of possible connections and
             remember whether this way is valid or not. */
+            this.currWayNodes.addLast(Long.parseLong(attributes.getValue("ref")));
 
         } else if (activeState.equals("way") && qName.equals("tag")) {
             /* While looking at a way, we found a <tag...> tag. */
@@ -96,9 +110,15 @@ public class GraphBuildingHandler extends DefaultHandler {
             } else if (k.equals("highway")) {
                 //System.out.println("Highway type: " + v);
                 /* TODO Figure out whether this way and its connections are valid. */
+                if (this.ALLOWED_HIGHWAY_TYPES.contains(v)) {
+                    this.currWayValid = true;
+                } else {
+                    this.currWayValid = false;
+                }
                 /* Hint: Setting a "flag" is good enough! */
             } else if (k.equals("name")) {
                 //System.out.println("Edge Name: " + v);
+                this.currWayName = v;
             }
 //            System.out.println("Tag with k=" + k + ", v=" + v + ".");
         } else if (activeState.equals("node") && qName.equals("tag") && attributes.getValue("k")
@@ -109,6 +129,7 @@ public class GraphBuildingHandler extends DefaultHandler {
             node this tag belongs to. Remember XML is parsed top-to-bottom, so probably it's the
             last node that you looked at (check the first if-case). */
 //            System.out.println("Node's name: " + attributes.getValue("v"));
+            this.lastNode.setName(attributes.getValue("v"));
         }
     }
 
@@ -130,6 +151,13 @@ public class GraphBuildingHandler extends DefaultHandler {
             /* Hint1: If you have stored the possible connections for this way, here's your
             chance to actually connect the nodes together if the way is valid. */
 //            System.out.println("Finishing a way...");
+            if (this.currWayValid) {
+                this.g.addWay(this.currWayNodes, this.currWayName);
+            }
+            /* TODO Reset all Way values/flags for new way. */
+            this.currWayNodes.clear();
+            this.currWayName = null;
+            this.currWayValid = false;
         }
     }
 
