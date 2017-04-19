@@ -114,33 +114,56 @@ public class GraphDB {
 
     /** Returns an iterable of all vertex IDs in the graph. */
     Iterable<Long> vertices() {
-        //YOUR CODE HERE
         return this.nodes.keySet();
     }
 
     /** Returns ids of all vertices adjacent to v. */
     Iterable<Long> adjacent(long v) {
-        return null;
+        return this.nodes.get(v).adjacent();
     }
 
     /** Returns the Euclidean distance between vertices v and w, where Euclidean distance
      *  is defined as sqrt( (lonV - lonV)^2 + (latV - latV)^2 ). */
     double distance(long v, long w) {
-        return 0;
+        Node nd1 = this.nodes.get(v);
+        Node nd2 = this.nodes.get(w);
+        return Math.sqrt(Math.pow(nd1.getLon() - nd2.getLon(), 2) + Math.pow(nd1.getLat() - nd2.getLat(), 2));
+    }
+
+    /** Returns the Euclidean distance between vertex v and latitude lat and longitude lon.
+     *
+     * @param v The vertex node
+     * @param lat The target latitude
+     * @param lon The target longitude
+     * @return
+     */
+    double distance(long v, double lon, double lat) {
+        Node nd1 = this.nodes.get(v);
+        return Math.sqrt(Math.pow(nd1.getLon() - lon, 2) + Math.pow(nd1.getLat() - lat, 2));
     }
 
     /** Returns the vertex id closest to the given longitude and latitude. */
     long closest(double lon, double lat) {
-        return 0;
+        long closest = -1;
+        for (Long vertex : this.vertices()) {
+            if (closest == -1) {
+                closest = vertex;
+            } else {
+                if (distance(closest, lon, lat) > distance(vertex, lon, lat)) {
+                    closest = vertex;
+                }
+            }
+        }
+        return closest;
     }
 
     /** Longitude of vertex v. */
     double lon(long v) {
-        return 0;
+        return this.nodes.get(v).getLon();
     }
 
     /** Latitude of vertex v. */
     double lat(long v) {
-        return 0;
+        return this.nodes.get(v).getLat();
     }
 }

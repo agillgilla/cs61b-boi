@@ -1,3 +1,4 @@
+import java.util.ArrayDeque;
 import java.util.HashSet;
 
 /**
@@ -31,6 +32,14 @@ public class Node {
         this.lat = lat;
     }
 
+    public double getLon() {
+        return lon;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
     public long getId() {
         return this.id;
     }
@@ -41,5 +50,13 @@ public class Node {
 
     public void addEdge(Edge e) {
         this.edges.add(e);
+    }
+
+    public Iterable<Long> adjacent() {
+        ArrayDeque<Long> adj = new ArrayDeque<>();
+        for (Edge e : this.edges) {
+            adj.addLast(e.other(this).getId());
+        }
+        return adj;
     }
 }
