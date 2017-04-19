@@ -111,7 +111,6 @@ public class GraphDB {
      *  we can reasonably assume this since typically roads are connected.
      */
     private void clean() {
-        // TODO: Your code here.
         ArrayDeque<Long> removeList = new ArrayDeque<>();
         for (Long vertexID : this.vertices()) {
             if (this.nodes.get(vertexID).notConnected()) {
