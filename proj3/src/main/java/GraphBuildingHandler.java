@@ -80,7 +80,7 @@ public class GraphBuildingHandler extends DefaultHandler {
             Node nd = new Node(Long.parseLong(attributes.getValue("id")),
                     Double.parseDouble(attributes.getValue("lon")),
                     Double.parseDouble(attributes.getValue("lat")));
-            this.g.addNode(nd);
+            this.g.addNodeNoParams(nd);
 
             this.lastNode = nd;
 
