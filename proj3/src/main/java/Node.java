@@ -12,6 +12,7 @@ public class Node {
     private String name;
 
     public Node(long id, double lon, double lat) {
+        this.edges = new HashSet<>();
         this.id = id;
         this.lon = lon;
         this.lat = lat;
