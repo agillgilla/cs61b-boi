@@ -1,5 +1,4 @@
 import java.util.ArrayDeque;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public class Rasterer {
     //              your own QuadTree since there is no built-in quadtree in Java.
     TileQuadTree mainTree;
     static String imgRoot;
-    ArrayDeque<Tile> render_list;
+    ArrayDeque<Tile> renderList;
 
 
     /** imgRoot is the name of the directory containing the images.
@@ -63,7 +62,7 @@ public class Rasterer {
 
 
 
-        this.render_list = new ArrayDeque<>();
+        this.renderList = new ArrayDeque<>();
         findQueryBox(this.mainTree,
                 params.get("ullon"),
                 params.get("ullat"),
@@ -72,7 +71,7 @@ public class Rasterer {
                 (params.get("lrlon") - params.get("ullon")) / params.get("w"));
 
         QuickSortTile sorter = new QuickSortTile();
-        Tile[] latSort = this.render_list.toArray(new Tile[this.render_list.size()]);
+        Tile[] latSort = this.renderList.toArray(new Tile[this.renderList.size()]);
         sorter.sortDecreasing(latSort, "lat");
 
         Tile[][] rasterTiles = null;
@@ -111,8 +110,10 @@ public class Rasterer {
         results.put("render_grid", rasterImgPaths);
         results.put("raster_ul_lon", rasterTiles[0][0].getUlLon());
         results.put("raster_ul_lat", rasterTiles[0][0].getUlLat());
-        results.put("raster_lr_lon", rasterTiles[rasterTiles.length - 1][rasterTiles[0].length - 1].getLrLon());
-        results.put("raster_lr_lat", rasterTiles[rasterTiles.length - 1][rasterTiles[0].length - 1].getLrLat());
+        results.put("raster_lr_lon",
+                rasterTiles[rasterTiles.length - 1][rasterTiles[0].length - 1].getLrLon());
+        results.put("raster_lr_lat",
+                rasterTiles[rasterTiles.length - 1][rasterTiles[0].length - 1].getLrLat());
         results.put("depth", rasterTiles[0][0].getImgPath().length());
         results.put("query_success", true);
 
@@ -120,7 +121,11 @@ public class Rasterer {
     }
 
     public TileQuadTree genQuadTree() {
-        Tile root = new Tile("root", MapServer.ROOT_ULLON, MapServer.ROOT_ULLAT, MapServer.ROOT_LRLON, MapServer.ROOT_LRLAT);
+        Tile root = new Tile("root",
+                MapServer.ROOT_ULLON,
+                MapServer.ROOT_ULLAT,
+                MapServer.ROOT_LRLON,
+                MapServer.ROOT_LRLAT);
         TileQuadTree rootTree = new TileQuadTree(root);
         rootTree.setNW(new TileQuadTree(rootTree, 1));
         rootTree.setNE(new TileQuadTree(rootTree, 2));
@@ -137,16 +142,36 @@ public class Rasterer {
                              double lonDPPQuery) {
         if (currTree.getElement().intersects(ulLonQuery, ulLatQuery, lrLonQuery, lrLatQuery)) {
             if (currTree.getElement().lonDPP() <= lonDPPQuery) {
-                this.render_list.add(currTree.getElement());
+                this.renderList.add(currTree.getElement());
             } else {
                 //System.out.println(currTree.getElement().lonDPP());
                 if (currTree.NW != null) {
-                    findQueryBox(currTree.NW, ulLonQuery, ulLatQuery, lrLonQuery, lrLatQuery, lonDPPQuery);
-                    findQueryBox(currTree.NE, ulLonQuery, ulLatQuery, lrLonQuery, lrLatQuery, lonDPPQuery);
-                    findQueryBox(currTree.SW, ulLonQuery, ulLatQuery, lrLonQuery, lrLatQuery, lonDPPQuery);
-                    findQueryBox(currTree.SE, ulLonQuery, ulLatQuery, lrLonQuery, lrLatQuery, lonDPPQuery);
+                    findQueryBox(currTree.NW,
+                            ulLonQuery,
+                            ulLatQuery,
+                            lrLonQuery,
+                            lrLatQuery,
+                            lonDPPQuery);
+                    findQueryBox(currTree.NE,
+                            ulLonQuery,
+                            ulLatQuery,
+                            lrLonQuery,
+                            lrLatQuery,
+                            lonDPPQuery);
+                    findQueryBox(currTree.SW,
+                            ulLonQuery,
+                            ulLatQuery,
+                            lrLonQuery,
+                            lrLatQuery,
+                            lonDPPQuery);
+                    findQueryBox(currTree.SE,
+                            ulLonQuery,
+                            ulLatQuery,
+                            lrLonQuery,
+                            lrLatQuery,
+                            lonDPPQuery);
                 } else {
-                    this.render_list.add(currTree.getElement());
+                    this.renderList.add(currTree.getElement());
                 }
             }
             //System.out.println(currTree.getElement().getImgPathActual());

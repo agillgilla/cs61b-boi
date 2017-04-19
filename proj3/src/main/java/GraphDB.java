@@ -6,7 +6,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -84,10 +83,10 @@ public class GraphDB {
 
     /**
      * Adds new Edge between list of Nodes to the GraphDB.
-     * @param nodes
+     * @param nodeIds
      */
-    public void addWay(ArrayDeque<Long> nodes, String name) {
-        Long[] nodeArray = nodes.toArray(new Long[nodes.size()]);
+    public void addWay(ArrayDeque<Long> nodeIds, String name) {
+        Long[] nodeArray = nodeIds.toArray(new Long[nodes.size()]);
         Long prevNode = nodeArray[0];
         for (int i = 1; i < nodeArray.length; i++) {
             this.addEdge(prevNode, nodeArray[i], name);
