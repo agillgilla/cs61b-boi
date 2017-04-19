@@ -92,6 +92,9 @@ public class GraphDB {
         }
     }
 
+    public Node getNode(long id) {
+        return this.nodes.get(id);
+    }
 
     /**
      * Helper to process strings into their "cleaned" form, ignoring punctuation and capitalization.
@@ -132,10 +135,11 @@ public class GraphDB {
 
     /** Returns the Euclidean distance between vertices v and w, where Euclidean distance
      *  is defined as sqrt( (lonV - lonV)^2 + (latV - latV)^2 ). */
-    double distance(long v, long w) {
+    public double distance(long v, long w) {
         Node nd1 = this.nodes.get(v);
         Node nd2 = this.nodes.get(w);
-        return Math.sqrt(Math.pow(nd1.getLon() - nd2.getLon(), 2) + Math.pow(nd1.getLat() - nd2.getLat(), 2));
+        return Math.sqrt(Math.pow(nd1.getLon() - nd2.getLon(), 2)
+                + Math.pow(nd1.getLat() - nd2.getLat(), 2));
     }
 
     /** Returns the Euclidean distance between vertex v and latitude lat and longitude lon.
@@ -145,19 +149,19 @@ public class GraphDB {
      * @param lon The target longitude
      * @return
      */
-    double distance(long v, double lon, double lat) {
+    public double distance(long v, double lon, double lat) {
         Node nd1 = this.nodes.get(v);
         return Math.sqrt(Math.pow(nd1.getLon() - lon, 2) + Math.pow(nd1.getLat() - lat, 2));
     }
 
     /** Returns the vertex id closest to the given longitude and latitude. */
-    long closest(double lon, double lat) {
+    public long closest(double lon, double lat) {
         long closest = -1;
         for (Long vertex : this.vertices()) {
             if (closest == -1) {
                 closest = vertex;
             } else {
-                if (distance(closest, lon, lat) > distance(vertex, lon, lat)) {
+                if (this.distance(closest, lon, lat) > this.distance(vertex, lon, lat)) {
                     closest = vertex;
                 }
             }
@@ -166,12 +170,12 @@ public class GraphDB {
     }
 
     /** Longitude of vertex v. */
-    double lon(long v) {
+    public double lon(long v) {
         return this.nodes.get(v).getLon();
     }
 
     /** Latitude of vertex v. */
-    double lat(long v) {
+    public double lat(long v) {
         return this.nodes.get(v).getLat();
     }
 }

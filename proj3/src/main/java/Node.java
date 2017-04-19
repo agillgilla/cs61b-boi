@@ -12,6 +12,9 @@ public class Node {
     private double lat;
     private String name;
 
+    private double distFromStart;
+    private Node target;
+
     public Node(long id, double lon, double lat) {
         this.edges = new HashSet<>();
         this.id = id;
@@ -63,4 +66,5 @@ public class Node {
     public boolean notConnected() {
         return this.edges.isEmpty();
     }
+
 }
