@@ -29,6 +29,7 @@ public class GraphDB {
      * @param dbPath Path to the XML file to be parsed.
      */
     public GraphDB(String dbPath) {
+        this.nodes = new HashMap<>();
         try {
             File inputFile = new File(dbPath);
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -48,7 +49,7 @@ public class GraphDB {
      * @param lat Latitude of new Node
      * @return new Node instance
      */
-    public Node addNodeParams(long id, double lon, double lat) {
+    public Node addNode(long id, double lon, double lat) {
         Node nd = new Node(id, lon, lat);
         this.nodes.put(id, nd);
         return nd;
@@ -58,7 +59,7 @@ public class GraphDB {
      * Adds a new Node to the GraphDB
      * @param nd The new Node instance.
      */
-    public void addNodeNoParams(Node nd) {
+    public void addNode(Node nd) {
         this.nodes.put(nd.getId(), nd);
     }
 
