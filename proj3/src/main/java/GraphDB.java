@@ -131,11 +131,8 @@ public class GraphDB {
         }
 
         removeList.clear();
-        for (Long vertexID : this.vertices()) {
-            if (this.nodes.get(vertexID).getName().equals("none")) {
-                if (this.nodes.get(vertexID).getName().equals("Chaparral")) {
-                    System.out.println("We removed the bastard.");
-                }
+        for (Long vertexID : this.dirtyVertices()) {
+            if (this.dirtyNodes.get(vertexID).getName().equals("none")) {
                 removeList.add(vertexID);
             }
         }
@@ -147,6 +144,10 @@ public class GraphDB {
     /** Returns an iterable of all vertex IDs in the graph. */
     Iterable<Long> vertices() {
         return this.nodes.keySet();
+    }
+
+    Iterable<Long> dirtyVertices() {
+        return this.dirtyNodes.keySet();
     }
 
     /** Returns ids of all vertices adjacent to v. */
