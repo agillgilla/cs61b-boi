@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -79,6 +80,7 @@ public class MapServer {
 
     private static Rasterer rasterer;
     private static GraphDB graph;
+    private static Trie nodeTrie;
     private static LinkedList<Long> route = new LinkedList<>();
     /* Define any static variables here. Do not define any instance variables of MapServer. */
 
@@ -91,6 +93,8 @@ public class MapServer {
     public static void initialize() {
         graph = new GraphDB(OSM_DB_PATH);
         rasterer = new Rasterer(IMG_ROOT);
+        nodeTrie = new Trie();
+        nodeTrie.generateNodeTree(graph);
     }
 
     public static void main(String[] args) {
@@ -279,7 +283,12 @@ public class MapServer {
      * cleaned <code>prefix</code>.
      */
     public static List<String> getLocationsByPrefix(String prefix) {
-        return new LinkedList<>();
+        List<Node> matches = nodeTrie.autoComplete(prefix);
+        List<String> stringMatches = new LinkedList<>();
+        for (Node node : matches) {
+            stringMatches.add(node.getName());
+        }
+        return stringMatches;
     }
 
     /**
@@ -295,7 +304,17 @@ public class MapServer {
      * "id" -> Number, The id of the node. <br>
      */
     public static List<Map<String, Object>> getLocations(String locationName) {
-        return new LinkedList<>();
+        LinkedList<Map<String, Object>> locationMaps = new LinkedList<>();
+
+        for (Node node : nodeTrie.find(locationName)) {
+            HashMap<String, Object> currMap = new HashMap<>();
+            currMap.put("lat", node.getLat());
+            currMap.put("lon", node.getLon());
+            currMap.put("name", node.getName());
+            currMap.put("id", node.getId());
+            locationMaps.add(currMap);
+        }
+        return locationMaps;
     }
 
     /** Validates that Rasterer has returned a result that can be rendered.

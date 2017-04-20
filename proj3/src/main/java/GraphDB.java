@@ -6,6 +6,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.util.ArrayDeque;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -22,6 +23,7 @@ public class GraphDB {
      * creating helper classes, e.g. Node, Edge, etc. */
 
     private HashMap<Long, Node> nodes;
+    private HashMap<Long, Node> dirtyNodes;
     /**
      * Example constructor shows how to create and start an XML parser.
      * You do not need to modify this constructor, but you're welcome to do so.
@@ -29,6 +31,7 @@ public class GraphDB {
      */
     public GraphDB(String dbPath) {
         this.nodes = new HashMap<>();
+        this.dirtyNodes = new HashMap<>();
         try {
             File inputFile = new File(dbPath);
             SAXParserFactory factory = SAXParserFactory.newInstance();
@@ -59,7 +62,9 @@ public class GraphDB {
      * @param nd The new Node instance.
      */
     public void addNode(Node nd) {
+
         this.nodes.put(nd.getId(), nd);
+        this.dirtyNodes.put(nd.getId(), nd);
     }
 
     /**
@@ -79,6 +84,10 @@ public class GraphDB {
      */
     public void removeNode(long id) {
         this.nodes.remove(id);
+    }
+
+    public void removeNodeDirty(long id) {
+        this.dirtyNodes.remove(id);
     }
 
     /**
@@ -101,7 +110,7 @@ public class GraphDB {
      * @param s Input string.
      * @return Cleaned string.
      */
-    static String cleanString(String s) {
+    public static String cleanString(String s) {
         return s.replaceAll("[^a-zA-Z ]", "").toLowerCase();
     }
 
@@ -119,6 +128,19 @@ public class GraphDB {
         }
         for (Long vertexToRemove : removeList) {
             this.removeNode(vertexToRemove);
+        }
+
+        removeList.clear();
+        for (Long vertexID : this.vertices()) {
+            if (this.nodes.get(vertexID).getName().equals("none")) {
+                if (this.nodes.get(vertexID).getName().equals("Chaparral")) {
+                    System.out.println("We removed the bastard.");
+                }
+                removeList.add(vertexID);
+            }
+        }
+        for (Long vertexToRemove : removeList) {
+            this.removeNodeDirty(vertexToRemove);
         }
     }
 
@@ -176,5 +198,13 @@ public class GraphDB {
     /** Latitude of vertex v. */
     public double lat(long v) {
         return this.nodes.get(v).getLat();
+    }
+
+    public Collection<Node> getNodes() {
+        return this.nodes.values();
+    }
+
+    public Collection<Node> getDirtyNodes() {
+        return this.dirtyNodes.values();
     }
 }

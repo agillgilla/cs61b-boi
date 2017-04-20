@@ -20,7 +20,7 @@ public class Node {
         this.id = id;
         this.lon = lon;
         this.lat = lat;
-        this.name = "NO NAME ASSIGNED";
+        this.name = "none";
     }
 
     public void setId(long id) {
@@ -61,6 +61,10 @@ public class Node {
             adj.addLast(e.other(this).getId());
         }
         return adj;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public boolean notConnected() {
