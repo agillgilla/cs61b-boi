@@ -23,7 +23,7 @@ public class RadixSort
     public static String[] sort(String[] asciis)
     {
         if (asciis == null || asciis.length == 0) {
-            return null;
+            return asciis;
         }
         String[] asciisCopy = asciis.clone();
         quickSort(asciisCopy,0, asciisCopy.length - 1);
