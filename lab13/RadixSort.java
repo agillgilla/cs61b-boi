@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Class for doing Radix sort
  *
@@ -20,7 +22,12 @@ public class RadixSort
      **/
     public static String[] sort(String[] asciis)
     {
-        return null;
+        if (asciis == null || asciis.length == 0) {
+            return null;
+        }
+        String[] asciisCopy = asciis.clone();
+        quickSort(asciisCopy,0, asciisCopy.length - 1);
+        return asciisCopy;
     }
 
     /**
@@ -36,5 +43,47 @@ public class RadixSort
     private static void sortHelper(String[] asciis, int start, int end, int index)
     {
         //TODO use if you want to
+    }
+
+
+
+    private static void quickSort(String[] inputArr, int lowerIndex, int higherIndex) {
+
+        int i = lowerIndex;
+        int j = higherIndex;
+        // calculate pivot number, I am taking pivot as middle index number
+        String pivot = inputArr[lowerIndex+(higherIndex-lowerIndex)/2];
+        // Divide into two arrays
+        while (i <= j) {
+            /**
+             * In each iteration, we will identify a number from left side which
+             * is greater then the pivot value, and also we will identify a number
+             * from right side which is less then the pivot value. Once the search
+             * is done, then we exchange both numbers.
+             */
+            while (inputArr[i].compareTo(pivot) < 0) {
+                i++;
+            }
+            while (inputArr[j].compareTo(pivot) > 0) {
+                j--;
+            }
+            if (i <= j) {
+                exchangeValues(inputArr, i, j);
+                //move index to next position on both sides
+                i++;
+                j--;
+            }
+        }
+        // call quickSort() method recursively
+        if (lowerIndex < j)
+            quickSort(inputArr, lowerIndex, j);
+        if (i < higherIndex)
+            quickSort(inputArr, i, higherIndex);
+    }
+
+    private static void exchangeValues(String[] inputArr, int i, int j) {
+        String temp = inputArr[i];
+        inputArr[i] = inputArr[j];
+        inputArr[j] = temp;
     }
 }
