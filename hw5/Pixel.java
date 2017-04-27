@@ -23,11 +23,11 @@ public class Pixel {
         if (this.connection == null) {
             this.cumulativeEnergy = this.energy;
         } else {
-            this.cumulativeEnergy = parent.getCumulativeEnergy() + this.energy;
+            this.cumulativeEnergy = parent.getCumEnergy() + this.energy;
         }
     }
 
-    public double getCumulativeEnergy() {
+    public double getCumEnergy() {
         return this.cumulativeEnergy;
     }
 
