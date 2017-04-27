@@ -66,7 +66,10 @@ public class SeamCarver {
                 if (row == 0) {
                     pixels[row][col].setConnection(null);
                 } else {
-                    if (!validX(col - 1, pixels[0].length)) {
+                    if (!validX(col - 1, pixels[0].length)
+                            && !validX(col + 1, pixels[0].length)) {
+                        pixels[row][col].setConnection(pixels[row - 1][col]);
+                    } else if (!validX(col - 1, pixels[0].length)) {
                         if (pixels[row - 1][col].getCumEnergy()
                                 < pixels[row - 1][col + 1].getCumEnergy()) {
                             pixels[row][col].setConnection(pixels[row - 1][col]);
@@ -80,9 +83,6 @@ public class SeamCarver {
                         } else {
                             pixels[row][col].setConnection(pixels[row - 1][col]);
                         }
-                    } else if (!validX(col - 1, pixels[0].length)
-                            && !validX(col + 1, pixels[0].length)) {
-                        pixels[row][col].setConnection(pixels[row - 1][col]);
                     } else {
                         double minCumulativeEnergy =
                                 Math.min(pixels[row - 1][col - 1].getCumEnergy(),
@@ -130,7 +130,10 @@ public class SeamCarver {
                 if (row == 0) {
                     pixels[row][col].setConnection(null);
                 } else {
-                    if (!validX(col - 1, pixels[0].length)) {
+                    if (!validX(col - 1, pixels[0].length)
+                            && !validX(col + 1, pixels[0].length)) {
+                        pixels[row][col].setConnection(pixels[row - 1][col]);
+                    } else if (!validX(col - 1, pixels[0].length)) {
                         if (pixels[row - 1][col].getCumEnergy()
                                 < pixels[row - 1][col + 1].getCumEnergy()) {
                             pixels[row][col].setConnection(pixels[row - 1][col]);
@@ -144,9 +147,6 @@ public class SeamCarver {
                         } else {
                             pixels[row][col].setConnection(pixels[row - 1][col]);
                         }
-                    } else if (!validX(col - 1, pixels[0].length)
-                            && !validX(col + 1, pixels[0].length)) {
-                        pixels[row][col].setConnection(pixels[row - 1][col]);
                     } else {
                         double minCumulativeEnergy =
                                 Math.min(pixels[row - 1][col - 1].getCumEnergy(),
